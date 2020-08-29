@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<servlets>
+
+    <servlet>
+        <servlet-name>test</servlet-name>
+        <servlet-class>servlet.LoginServlet</servlet-class>
+    </servlet>
+
+
+    <servlet-mapping>
+        <servlet-name>test</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+
+</servlets>
+

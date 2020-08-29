@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title th:text="|首页_${application.name}|">首页_蜗牛网上书城</title>
+<link type="text/css" rel="stylesheet" th:href="@{/css/index.css}" />
+<script th:src="@{/js/jquery-3.4.1.js}"></script>
+<script th:src="@{/js/template.js}"></script>
+<script th:src="@{/js/category.js}"></script>
+</head>
+
+<body class="index">
+	<div class="container">
+		<div th:replace="~{commons::header}"></div>
+		<div th:replace="~{navbar}"></div>
+		<div th:replace="~{search}"></div>
+
+		<div class="wrapper clearfix">
+			<div class="wrap_box">
+				<div class="error box clearfix">
+					<table class="form_table prompt_3">
+						<colgroup>
+							<col width="320px" />
+							<col />
+						</colgroup>
+
+						<tbody>
+							<tr>
+								<th><img
+									src="/shop/views/default/skin/default/images/front/right.gif"
+									width="48px" height="51px" /></th>
+								<td><strong class="f14"> 注册成功！ </strong></td>
+							</tr>
+
+							<tr>
+								<th></th>
+								<td>您现在可以去： <a class="blue"
+									href="/shop/index.php?controller=simple&action=cart2">继续操作
+										>></a> <a class="blue"
+									href="/shop/index.php?controller=ucenter&action=index">个人中心
+										>></a> <a class="blue"
+									href="/shop/index.php?controller=site&action=index">网站首页 >></a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div th:replace="~{commons::help}"></div>
+		<div th:replace="~{commons::footer}"></div>
+	</div>
+</body>
+</html>

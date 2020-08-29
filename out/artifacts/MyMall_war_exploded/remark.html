@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title th:text="|首页_${application.name}|">首页_小牛网上书城</title>
+<link type="text/css" rel="stylesheet" th:href="@{/css/index.css}" />
+<script th:src="@{/js/jquery-3.4.1.js}"></script>
+<script th:src="@{/js/template.js}"></script>
+<script th:src="@{/js/category.js}"></script>
+</head>
+
+<body class="index">
+	<div class="container">
+		<div th:replace="~{commons::header}"></div>
+		<div th:replace="~{navbar}"></div>
+		<div th:replace="~{search}"></div>
+
+		<div class="position">
+			<span>您当前的位置：</span> <a href=""> 首页</a> » <a href="" th:text="${goods.name}">商品名</a>
+		</div>
+		<div class="clearfix">
+			<div class="sidebar f_l">
+				<div class="box_2 m_10">
+					<div class="title">商品信息</div>
+					<div class="content">
+						<ul class="prolist clearfix">
+							<li><a href=""><img th:src="${goods.image}" alt="" height="212"
+									width="167"></a>
+								<p class="pro_title">
+									商品名称：<a class="blue" href="" th:text="${goods.name}">商品名</a>
+								</p>
+								<p>
+									优惠价：￥<b th:text="${goods.salesPrice}">0</b>
+								</p>
+								<p>
+									评价得分：<span class="grade"><i style="width: 0px"></i></span>(0分)
+								</p>
+								<p>评论数：0条</p></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="wrapper main f_r">
+				<div class="wrap_box">
+					<form method="post" action="remark">
+						<input type="hidden" name="opr" value="add" />
+						<input type="hidden" name="goodsid" th:value="${goods.id}" />
+						<table class="form_table f_l">
+							<caption>
+								<img src="images/front/comments.gif" width="88" height="23"
+									alt="我要评论" />
+							</caption>
+							<col width="120px" />
+							<col />
+							<tr>
+								<th>评论等级：</th>
+								<td><label><input name="score" class="radio"
+										type="radio" value="5" checked="checked" /><span
+										class="grade"><i style="width: 70px"></i></span></label> <label><input
+										name="score" class="radio" type="radio" value="4" /><span
+										class="grade"><i style="width: 56px"></i></span></label> <label><input
+										name="score" class="radio" type="radio" value="3" /><span
+										class="grade"><i style="width: 42px"></i></span></label> <label><input
+										name="score" class="radio" type="radio" value="2" /><span
+										class="grade"><i style="width: 28px"></i></span></label> <label><input
+										name="score" class="radio" type="radio" value="1" /><span
+										class="grade"><i style="width: 14px"></i></span></label></td>
+							</tr>
+							<tr>
+								<th>评论内容：</th>
+								<td valign="top"><textarea name="content" id="content"></textarea></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><label class="btn"><input type="submit"
+										value="我要评价" /></label></td>
+							</tr>
+						</table>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div th:replace="~{commons::help}"></div>
+		<div th:replace="~{commons::footer}"></div>
+	</div>
+</body>
+</html>

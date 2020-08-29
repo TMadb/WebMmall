@@ -1,0 +1,152 @@
+<script>
+	//发送Ajax，根据订单id获取订单的信息，还有订单明细
+	$.getJSON("../ucenter/order?opr=view&id=" + orderId,
+			function(result) {
+				if (result.code == 200) {
+					let order = result.data;
+					$("#orderNo").text(order.no);
+					$("#orderTime").text(order.orderTime);
+					$("#status").text(order.status);
+					$("#accept").text(order.accept);
+					$("#address").text(order.address);
+					$("#telphone").text(order.telphone);
+					$("#order_amount").text(order.totalMoney.toFixed(2));
+					$("#paytype").text(order.payType==1?"支付宝":"货到付款");
+					
+					let items=[];
+					for(let item of order.orderItems){
+						item.money=parseFloat(item.price*item.num).toFixed(2);
+						items.push(item);
+					}
+					
+					let html = template("orderItemTpl", {
+						"data" : items
+					});
+					$("#orderItems").html(html);
+					
+					let oprHtml=template("orderOprTpl", {
+						"data" : order.status
+					});
+					$("#order_opr").html(oprHtml);
+				}else if(result.code==403){
+					layer.alert("无权限,请重新登录!",function(){
+						location.href="../user?opr=tologin";
+					});
+				}
+			})
+</script>
+
+<script id="orderItemTpl" type="text/html">
+{{each data as orderItem}}
+	<tr >
+			<td><img class="pro_pic"
+						src="../{{orderItem.goods.image}}" width="50px"
+						height="50px" /></td>
+			<td class="t_l"><a class="blue"
+						href="../goods?opr=view&id={{orderItem.goods.id}}" target='_blank'>{{orderItem.goods.name}}</a></td>
+			<td class="red2">{{orderItem.price}}</td>
+			<td>{{orderItem.num}}</td>
+			<td class="red2 bold">{{orderItem.money}}</td>
+		</tr>
+{{/each}}
+</script>
+<script id="orderOprTpl" type="text/html">
+  {{if data==1}}
+			<label class="btn_orange"> <input type="button" value="取消订单" id="cancelOrder" /></label>
+			<label class="btn_green"><input type="button" value="立即付款" /></label>
+  {{/if}}
+  {{if data==3}}
+			<label class="btn_green"><input type="button" value="确认收货" id="finishOrder" /></label>
+  {{/if}}
+</script>
+<div class="uc_title m_10">
+	<label class="current"><span>订单详情</span></label>
+</div>
+<div class="prompt_2 m_10">
+	<p>
+		<b>订单号：</b><span id="orderNo"></span><b>下单日期：</b> <span id="orderTime"></span>
+		<b>状态：</b> <span class="red2" id="status"></span>
+	</p>
+	<p id="order_opr">
+		
+	</p>
+</div>
+<div class="box m_10">
+	<div class="title">
+		<h2>
+			<span class="orange">收件人信息</span>
+		</h2>
+	</div>
+
+	<!--收获信息展示-->
+	<div class="cont clearfix" id="acceptShow">
+		<table class="dotted_table f_l" width="100%" cellpadding="0"
+			cellspacing="0">
+			<col width="130px" />
+			<col />
+			<tr>
+				<th>收货人：</th>
+				<td id="accept"></td>
+			</tr>
+			<tr>
+				<th>地址：</th>
+				<td id="address"></td>
+			</tr>
+			<tr>
+				<th>手机号码：</th>
+				<td id="telphone"></td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<!--支付和配送-->
+<div class="box m_10">
+	<div class="title">
+		<h2>
+			<span class="orange">支付及配送方式</span>
+		</h2>
+	</div>
+	<div class="cont clearfix">
+		<table class="dotted_table f_l" width="100%" cellpadding="0"
+			cellspacing="0">
+			<col width="130px" />
+			<col />
+			<tr>
+				<th>支付方式：</th>
+				<td id="paytype"></td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<!--物品清单-->
+<div class="box m_10">
+	<div class="title">
+		<h2>
+			<span class="orange">商品清单</span>
+		</h2>
+	</div>
+	<div class="cont clearfix">
+		<table class="list_table f_l" width="100%" cellpadding="0"
+			cellspacing="0">
+			<thead>
+				<tr>
+					<th>图片</th>
+					<th>商品名称</th>
+					<th>商品价格</th>
+					<th>商品数量</th>
+					<th>小计</th>
+				</tr>
+			</thead>
+			<tbody id="orderItems">
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<div class="gray_box">
+	<p>
+		订单支付金额：<span class="red2">￥<label id="order_amount"></label></span>
+	</p>
+</div>

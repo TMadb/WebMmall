@@ -1,0 +1,42 @@
+<script>
+  $(function(){
+	  $("#save").click(function(){
+		 
+		  let data=new FormData();
+		  data.append("opr","upload");
+		  data.append("avatar",$("#avatar")[0].files[0]);//alert($("#avatar")[0].files[0])
+		  $.ajax({
+			  url:"user",
+			  type:"post",
+			  data:data,
+			  processData:false,
+			  contentType:false,
+			  dataType:"json",
+			  success:function(result){
+				  if(result.code==200){
+						$("#image").attr("src","../"+result.data)
+				  }
+			  }
+		  })
+		  
+	  })
+  })
+</script>
+<div class="uc_title m_10 tabs_menu">
+	<label class="current node"><span>用户头像修改</span></label>
+</div>
+<img src="" id="image">
+<table class="form_table" width="100%" cellpadding="0" cellspacing="0">
+	<col width="120px" />
+	<col />
+	<tr>
+		<th>请选择头像：</th>
+		<td><input type="file" id="avatar" /><label></label></td>
+	</tr>
+	<tr>
+		<th></th>
+		<td><label class="btn"><input type="button" id="save"
+				value="保存" /></label> <label class="btn"><input type="button"
+				id="cancel" value="取消" /></label></td>
+	</tr>
+</table>

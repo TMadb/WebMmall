@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // let e1=new RegExp("");
+        let e2=/^[a-zA-Z0-9_]{2,10}$/;
+        let e3=/^abcd$/;
+        // alert(e2.test("ab1"));
+        //alert(e3.test("abcabcdeabcdaa"));
+
+        let telphone=/^[0-9]{11}$/;
+        console.log(telphone.test("1234567890a"));
+
+        let e4=/^\D[0-9a-zA-Z_]{4,14}$/;
+        console.log(e4.test("aabcdweabcdabccab"));
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

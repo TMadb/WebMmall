@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>枸杞小百科</title>
+    <link type="text/css" rel="stylesheet" href="css/index.css" />
+    <script src="js/jquery.js"></script>
+    <script>
+        $(function () {
+            $.ajax({url:"showProducts",
+                    type:"get",
+                    data:{
+                        opr:"show"
+                    },
+                    dataType:"json",
+                    success:function (result) {
+
+                            for(var j = 8;j<12;j++){
+                                var product = result[j];
+                                var html = "<li><a href=\"\"><img src=\"productsImage/"+product.main_image+"\" width=\"85\" height=\"85\" /></a>\n" +
+                                    "                  <p class=\"pro_title\">\n" +
+                                    "                      <a href=\"\">"+product.name+"</a>\n" +
+                                    "                  </p>\n" +
+                                    "                  <p class=\"brown\">\n" +
+                                    "                      ￥<b>"+product.price+"</b>\n" +
+                                    "                  </p>\n" +
+                                    "                  </li>";
+                                $("#hotshopping").append(html);
+                            }
+                        }
+                }
+            )
+        });
+    </script>
+</head>
+<body>
+  <div class="container">
+      <div class="index" style="width: 100%;height: 30px;background-color: #f76711 ">
+          <span><a style="text-decoration:none;color: white;font-size: 16px;margin-left: 50px;margin-top: 5px" href="index.jsp">返回首页</a></span>
+      </div>
+      <div style="margin-left: 130px;" class="cont clearfix">
+          <ul id="hotshopping" class="prolist"></ul>
+      </div>
+      <div class="introduce" style="color: #f76711;font-size: 18px;margin-top: 0">枸杞，系茄科(Solanaceae)，茄bai族(Solaneae Reichb.)。枸杞du亚族(Lycium L.)。全世界枸杞属植物约有80种.宁夏枸杞别名叫zhi茨、枸杞、中宁枸dao杞、枸杞子、血杞子、西枸杞、津枸杞等。宁夏枸杞分为麻叶类，包括大麻叶、小麻叶、麻叶、宁杞1号；圆果类，包括圆果、小圆果、尖头圆果；黄果类，包括大黄果、小黄果及黄叶枸杞、白条枸杞、卷叶枸杞、紫柄枸杞等近20个品种。
+          与枸杞（Lycium chinense Mill.）相关的种有：
+             <p>&nbsp;&nbsp;黄果枸杞（变种）（Lycium barbarum L. var. auranticarpum K. F. Ching var. nov.）</p>
+             <p>&nbsp;&nbsp;宁夏枸杞（原变种）（Lycium barbarum L. var. barbarum.）</p>
+             <p>&nbsp;&nbsp;枸杞（原变种）（Lycium chinense Mill. var. chinense）</p>
+             <p>&nbsp;&nbsp;北方枸杞（变种）（Lycium chinense Mill. var. potaninii (Pojark.) A. M. Lu）</p>
+             <p>&nbsp;&nbsp;柱筒枸杞（Lycium cylindricum Kuang）</p>
+             <p>&nbsp;&nbsp;新疆枸杞（Lycium dasystemum Pojark.）</p>
+             <p>&nbsp;&nbsp;新疆枸杞（原变种）（Lycium dasystemum Pojark. var. dasystemum）</p>
+             <p>&nbsp;&nbsp;红枝枸杞（变种）（Lycium dasystemum Pojark. var. rubricaulium A. M. Lu var. nov.）</p>
+             <p>&nbsp;&nbsp;黑果枸杞（Lycium ruthenicum murr.）</p>
+             <p>&nbsp;&nbsp;截萼枸杞（Lycium truncatum Y. C. Wang ）</p>
+             <p>&nbsp;&nbsp;云南枸杞（Lycium yunnanense Kuang） 主要是根据果长与果径的比值大小来区分，比值大于2的划分为长果类，比值小于2的划分为短果类，比值小于1的划分为圆果类。</p>
+                  <p>&nbsp;&nbsp;&nbsp;&nbsp;长果类：果身长达2厘米以上，近似于圆柱型或棱柱型。一般是两端尖，有的是先端圆。果长一般为果径的2-2.5倍。</p>
+                  <p>&nbsp;&nbsp;&nbsp;&nbsp;短果类：果型与长果类相似，但果身略短。先端钝尖或平或微凹。果长一般为果径的1.5-2倍。这一类枸杞果色黄，因此兼有黄果类之称。</p>
+                  <p>&nbsp;&nbsp;&nbsp;&nbsp;圆果类：果身圆形或卵圆形，先端圆形或具短尖。果长一般为果径的1-1.5倍。</p>
+      </div>
+
+      <div class="help m_10">
+          <div class="cont clearfix">
+              <dl>
+                  <dt>
+                      <a href="">购物指南</a>
+                  </dt>
+                  <dd>
+                      <a href="">订单状态</a>
+                  </dd>
+                  <dd>
+                      <a href="">购物流程</a>
+                  </dd>
+              </dl>
+              <dl>
+                  <dt>
+                      <a href="">支付帮助</a>
+                  </dt>
+                  <dd>
+                      <a href="">支付帮助</a>
+                  </dd>
+                  <dd>
+                      <a href="">在线支付</a>
+                  </dd>
+                  <dd>
+                      <a href="">货到付款</a>
+                  </dd>
+              </dl>
+              <dl>
+                  <dt>
+                      <a href="">配送帮助</a>
+                  </dt>
+                  <dd>
+                      <a href="">EMS/邮政普包</a>
+                  </dd>
+                  <dd>
+                      <a href="">商品验货与签收</a>
+                  </dd>
+                  <dd>
+                      <a href="">配送范围及运费</a>
+                  </dd>
+              </dl>
+              <dl>
+                  <dt>
+                      <a href="">售后服务</a>
+                  </dt>
+                  <dd>
+                      <a href="">售后服务</a>
+                  </dd>
+                  <dd>
+                      <a href="">发票制度</a>
+                  </dd>
+                  <dd>
+                      <a href="">退货说明</a>
+                  </dd>
+                  <dd>
+                      <a href="">换货说明</a>
+                  </dd>
+              </dl>
+              <dl>
+                  <dt>
+                      <a href="">帮助信息</a>
+                  </dt>
+                  <dd>
+                      <a href="">友情链接</a>
+                  </dd>
+                  <dd>
+                      <a href="">联系客服</a>
+                  </dd>
+                  <dd>
+                      <a href="">找回密码</a>
+                  </dd>
+                  <dd>
+                      <a href="">关于我们</a>
+                  </dd>
+              </dl>
+          </div>
+      </div>
+      <div class="footer">
+          <p class="links">
+              <a href="">关于我们</a>|<a href="">常见问题</a>|<a href="">安全交易</a>|<a href="">购买流程</a>|<a href="">如何付款</a>|<a
+                  href="">联系我们</a>|<a href="">合作提案</a>
+          </p>
+          Copyright © 2015-2021 <a class="copyys" target="_blank" href="">蜀ICP备01000010号</a>
+      </div>
+
+  </div>
+</body>
+</html>

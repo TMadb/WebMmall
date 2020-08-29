@@ -1,0 +1,47 @@
+<script type="text/javascript">
+	$(function() {
+		$("#loginBtn").click(function() {
+			let account = $("#account").val();
+			let password = $("#password").val();
+			let user = {
+				"opr" : "loginpop",
+				"account" : account,
+				"password" : password
+			}
+			$.ajax({
+				url : "user",
+				type : "post",
+				data : user,
+				dataType : "json",
+				success : function(result) {
+					if (result.code == 200) {
+						alert("OK")
+					}
+				}
+			});
+		});
+	});
+</script>
+<div class="wrap_box">
+	<div class="box login_box clearfix">
+		<table width="515" class="form_table f_l">
+			<col width="120px" />
+			<col />
+			<tr>
+				<th>用户名：</th>
+				<td><input class="gray" type="text" name="account" id="account"
+					placeholder="请输入账号" value="laotan" /><span id="namemsg"></span></td>
+			</tr>
+			<tr>
+				<th>密码：</th>
+				<td><input class="gray" type="password" id="password"
+					name="password" placeholder="请输入6-20位长度的密码" value="123456" /><span
+					id="pwdmsg"></span></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input class="submit_login" type="submit" value="登录" /></td>
+			</tr>
+		</table>
+	</div>
+</div>

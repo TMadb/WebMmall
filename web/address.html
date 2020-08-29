@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>address</title>
+    <script src="js/city.js"></script>
+    <script src="js/jquery.js"></script>
+
+    <script>
+        $(function () {
+            for(var i =0 ; i<cities.provinces.length;i++){
+                var option = $("<option></option>");
+                option.text(cities.provinces[i].provinceName);
+                option.val(i);
+                console.log(i);
+                $("#provinces").append(option);
+            }
+
+            $("#provinces").change(function () {
+                $("#cities").html("");
+                var index = $(this).val();
+                for(var i = 0;i<cities.provinces[index].citys.length;i++){
+                    var option = $("<option></option>");
+                    option.text(cities.provinces[index].citys[i].citysName);
+                    $("#cities").append(option);
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+   <select id="provinces"></select>
+   <select id="cities"></select>
+</body>
+
+</html>
