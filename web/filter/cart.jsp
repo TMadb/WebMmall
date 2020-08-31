@@ -1,4 +1,5 @@
-<%@ page import="JavaBean.ProductBean" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="entity.ProductBean" %>
 <%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: 80664
@@ -10,8 +11,8 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title th:text="|购物车_${application.name}|">购物车</title>
-    <link type="text/css" rel="stylesheet" href="css/index.css" />
+    <title ${sessionScope.userName}>购物车</title>
+    <link type="text/css" rel="stylesheet" href="<c:url value="/css/index.css"/>" />
 
 </head>
 <body class="second">
