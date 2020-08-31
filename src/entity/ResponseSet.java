@@ -1,4 +1,4 @@
-package JavaBean;
+package entity;
 
 //设置泛型通用
 public class ResponseSet<T> {

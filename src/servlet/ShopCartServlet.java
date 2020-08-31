@@ -1,6 +1,6 @@
 package servlet;
 
-import JavaBean.ProductBean;
+import entity.ProductBean;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

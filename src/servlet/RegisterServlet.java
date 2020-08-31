@@ -4,7 +4,6 @@ package servlet;
 注册界面
  */
 
-import JavaBean.EmployeeBean;
 import dao.BaseDao;
 
 import javax.servlet.ServletException;

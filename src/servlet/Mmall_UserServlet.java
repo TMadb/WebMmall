@@ -1,6 +1,7 @@
 package servlet;
 
-import JavaBean.Mmall_UserBean;
+import entity.Mmall_UserBean;
+import com.chinasofti.commons.CommonUtils;
 import dao.BaseDao;
 import service.serviceImplement.Mmall_UserServiceImplement;
 
@@ -12,14 +13,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @WebServlet(name = "Mmall_UserServlet",value = "/register")
 public class Mmall_UserServlet extends HttpServlet {
 
+    //查询数据库
     Mmall_UserServiceImplement userServiceImplement = new Mmall_UserServiceImplement();
+    BaseDao dao = new BaseDao();
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -40,6 +43,43 @@ public class Mmall_UserServlet extends HttpServlet {
             case ("out"):
                 loginOut(request,response);
                 break;
+            case("checkUserName"):
+                String userName = request.getParameter("userName");
+                PrintWriter out = response.getWriter();
+                Mmall_UserBean user = (Mmall_UserBean)dao.selectOne("select * from mmall_user where username=?", Mmall_UserBean.class,
+                        userName);
+                if(user!=null){
+                    String result = "true";
+                    out.write(result);
+                }else{
+                    String result = "false";
+                    out.write(result);
+                }
+                break;
+            case("checkYzm"):
+                String yzm = request.getParameter("wyzm");
+                String nyzm = yzm.toUpperCase();
+                String wyzm = String.valueOf(request.getSession().getAttribute("zcyzm"));
+                String nwyzm = wyzm.toUpperCase();
+                PrintWriter outer = response.getWriter();
+                if(nwyzm.equals(nyzm) ){
+                    String result = "true";
+                    outer.write(result);
+                }else{
+                    String result = null;
+                    if(yzm.equals("") ){
+                        result = "nullError";
+                        outer.write(result);
+                    }else if(yzm.length()<4 || yzm.length()>4){
+                        result = "lengthError";
+                        outer.write(result);
+                    }else{
+                        result = "false";
+                        outer.write(result);
+                    }
+
+                }
+                break;
         }
     }
 
@@ -56,17 +96,28 @@ public class Mmall_UserServlet extends HttpServlet {
             throws ServletException, IOException{
         String userName = request.getParameter("account");
         String password = request.getParameter("password");
-        Mmall_UserBean userBean =userServiceImplement.login(userName,password);
-        if(userBean != null){
+        String captcha = request.getParameter("captcha");
+        String ncaptcha = captcha.toUpperCase();
+        String yzm = String.valueOf(request.getSession().getAttribute("yzm"));
+        String nyzm  = yzm.toUpperCase();
+        Mmall_UserBean userBean =userServiceImplement.login(userName,CommonUtils.getMD5String(password));
+
+        if(userBean != null && ncaptcha.equals(nyzm)){
             //将登陆的用户名存储
             HttpSession session = request.getSession();
             session.setAttribute("userName",userBean.getUsername());
             response.sendRedirect("index.jsp");
         }else{
-            System.out.println("登录失败");
-            HttpSession session = request.getSession();
-            session.setAttribute("login", "登录失败,请检查用户名和密码是否正确");
-            response.sendRedirect("login.jsp");
+            if(userBean == null || userBean.getUsername() != userName){
+                request.setAttribute("user", "用户名错误");
+            }
+            if(userBean == null || userBean.getPassword() != password){
+                request.setAttribute("password", "密码错误");
+            }
+            if(captcha == null || captcha.length() < 4 || captcha.length() > 4){
+                request.setAttribute("yzm","验证码错误" );
+            }
+            request.getRequestDispatcher("login.jsp").forward(request, response);
         }
     }
 
@@ -87,40 +138,25 @@ public class Mmall_UserServlet extends HttpServlet {
         }
 
         protected void register (HttpServletRequest request, HttpServletResponse response)
-                throws ServletException, IOException{
-            //获取值
-            String username = request.getParameter("userName");
+                throws ServletException, IOException {
+            request.setCharacterEncoding("utf-8");
+            response.setContentType("text/html;charset=utf-8");
+//            Mmall_UserBean userBean = CommonUtils.toBean(request.getParameterMap(),
+//                    Mmall_UserBean.class);
+            String userName = request.getParameter("account");
             String password = request.getParameter("password");
             String email = request.getParameter("email");
             String phone = request.getParameter("phone");
-            String passquestion = request.getParameter("passquestion");
-            String passanswer = request.getParameter("passanswer");
-            String captcha = request.getParameter("captcha");
-            BaseDao baseDao = new BaseDao();
-            String sql1 = "select username from mmall_user";
-            Mmall_UserBean userbean = (Mmall_UserBean) baseDao.selectOne(sql1, Mmall_UserBean.class);
-            PrintWriter out = response.getWriter();
-            if (userbean.getUsername().equals(username)) {
-                System.out.println(userbean.getUsername());
-                out.write(0);
-            } else {
-                out.write(1);
-            }
-            //格式化时间
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            if (userbean == null) {
-                String sql = "INSERT INTO mmall_user VALUES (default, '" + username + "', '" + password + "', '" + email + "', '" + phone + "', '" +
-                        passquestion + "', '" + passanswer + "', '" + 1 + "', '2020-08-06 18:09:48'," + simpleDateFormat.format(new Date()) + ")";
-                Mmall_UserServiceImplement mmallUserServiceImplement = new Mmall_UserServiceImplement();
-                //,username,password,email,phone,passquestion,passanswer
-                int con = mmallUserServiceImplement.insertUser(sql);
-                if (con > 0) {
-                    System.out.println("注册成功");
-                } else {
-                    System.out.println("注册失败，请重试（可能是数据库中有同名的用户）");
-                }
-            } else {
-                System.out.println("数据库中有同名的用户,请重试");
+//            String passquestion = request.getParameter("passquestion");
+//            String passanswer = request.getParameter("passanswer");
+//            String captcha = request.getParameter("captcha");
+//            String captchaM = captcha.toUpperCase();
+            int i = userServiceImplement.addUser(userName,CommonUtils.getMD5String(password),
+                    email,phone,new Date(),new Date());
+            if(i > 0){
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            }else{
+                request.getRequestDispatcher("register.jsp").forward(request, response);
             }
         }
 }

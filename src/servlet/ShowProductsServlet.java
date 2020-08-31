@@ -4,9 +4,11 @@ package servlet;
 加载商品列表
  */
 
-import JavaBean.PageBean;
-import JavaBean.ProductBean;
-import dao.BaseDao;
+import com.chinasofti.commons.CommonUtils;
+import com.chinasofti.jdbc.JdbcUtils;
+import com.chinasofti.jdbc.TxQueryRunner;
+import entity.PageBean;
+import entity.ProductBean;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import service.serviceImplement.ProductServiceImplement;
@@ -42,33 +44,46 @@ public class ShowProductsServlet extends HttpServlet {
         }else if(opr.equals("showproductBysort") && condition.equals("红枸杞")){
             showproductBysort(request,response,condition);
         }
+//        else if(opr.equals("one")){
+//            showOneById(request,response,id);
+//        }
     }
+
+    private void showOnDetail(HttpServletRequest request, HttpServletResponse response, int id)
+            throws ServletException, IOException{
+        ProductBean productBean = productServiceImplement.selectProductById(id);
+        System.out.println("cg");
+        request.setAttribute("productOne", productBean);
+        request.getRequestDispatcher("productDetail.jsp").forward(request, response);
+    }
+
+//    private void showOneById(HttpServletRequest request, HttpServletResponse response, int id)
+//            throws ServletException, IOException{
+//           //查询数据
+//           ProductBean productBean = productServiceImplement.selectProductById(id);
+//           request.setAttribute("product",productBean);
+//           request.getRequestDispatcher("productDetail.jsp").forward(request, response);
+//    }
 
     private void showproductBysort(HttpServletRequest request, HttpServletResponse response,String condition)
             throws ServletException, IOException{
         List<ProductBean> products = productServiceImplement.selectAllProductBySort(condition);
         JSONArray array = JSONArray.fromObject(products);
-        try {
-            PrintWriter out = response.getWriter();
-            out.write(array.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        PrintWriter out = response.getWriter();
+        out.write(array.toString());
     }
 
-    protected void showProducts(HttpServletRequest request, HttpServletResponse response){
-
+    protected void showProducts(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException{
         List<ProductBean> products = productServiceImplement.selectAllProducts();
         JSONArray array = JSONArray.fromObject(products);
-        try {
-            PrintWriter out = response.getWriter();
-            out.write(array.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        PrintWriter out = response.getWriter();
+        out.write(array.toString());
+
     }
 
-    protected void showProductsDetailes(HttpServletRequest request, HttpServletResponse response){
+    protected void showProductsDetailes(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException{
         //获取Ajax传过来的数据
         String currentPage = request.getParameter("currentPage");
         String pageSize = request.getParameter("pageSize");
@@ -90,93 +105,7 @@ public class ShowProductsServlet extends HttpServlet {
         object.accumulate("totalPage",pageBean.getTotalPage());
         object.accumulate("products",result);
         PrintWriter out = null;
-        try {
-            out = response.getWriter();
-            out.write(object.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        out = response.getWriter();
+        out.write(object.toString());
     }
-
-
-    //    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//
-//
-//
-//
-//        out.write("<!DOCTYPE html\n" +
-//                "\tPUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n" +
-//                "<html>\n" +
-//                "\n" +
-//                "<head>\n" +
-//                "\t<meta charset=\"utf-8\" />\n" +
-//                "\t<title >商品列表_蜗牛图书商城</title>\n" +
-//                "\t<link type=\"text/css\" rel=\"stylesheet\" href=\"css/index.css\" />\n" +
-//                "</head>\n" +
-//                "\n" +
-//                "<body class=\"index\">\n" +
-//                "\t<div class=\"container\">\n" +
-//                "\t\t<div ></div>\n" +
-//                "\t\t<div ></div>\n" +
-//                "\t\t<div ></div>\n" +
-//                "\t\t<div class=\"wrapper clearfix container_2\">\n" +
-//                "\t\t\t<div class=\"sidebar f_l\">\n" +
-//                "\t\t\t\t<!--销售排行-->\n" +
-//                "\t\t\t\t<div class=\"box m_10\">\n" +
-//                "\t\t\t\t\t<div class=\"title\">销售排行榜</div>\n" +
-//                "\t\t\t\t\t<div class=\"content\">\n" +
-//                "\t\t\t\t\t\t<ul class=\"ranklist\" id='ranklist'>\n" +
-//                "\t\t\t\t\t\t\t<li><span>1</span><a class=\"p_name\" href=\"\" target=\"_blank\">图书名</a></li>\n" +
-//                "\t\t\t\t\t\t</ul>\n" +
-//                "\t\t\t\t\t</div>\n" +
-//                "\t\t\t\t</div>\n" +
-//                "\t\t\t\t<!--销售排行-->\n" +
-//                "\t\t\t</div>\n" +
-//                "\n" +
-//                "\t\t\t<div class=\"main f_r\" style=\"margin-top: 200px\">\n" +
-//                "\t\t\t\t<ul class=\"display_list clearfix m_10\">");
-//
-//
-//        for(ProductBean product:products){
-//            out.write("<li class=\"clearfix win\">\n" +
-//                    "\t\t\t\t\t\t<div class=\"pic\">\n" +
-//                    "\t\t\t\t\t\t\t<a href=\"\" target=\"_blank\"><img src=\"productsImage\\"+product.getMain_image()+"\" width=\"200\" height=\"200\" /></a>\n" +
-//                    "\t\t\t\t\t\t</div>\n" +
-//                    "\t\t\t\t\t\t<h3 class=\"title\">\n" +
-//                    "\t\t\t\t\t\t\t<a class=\"p_name\" href=\"\" target=\"_blank\">"+product.getSubtitle()+"</a>\n" +
-//                    "\t\t\t\t\t\t\t<span>总销量：0(0人评论\n" +
-//                    "\t\t\t\t\t\t\t\t)</span><span class=\"grade\" lay-data=\"\"><i style=\"width: 56px\"></i></span>\n" +
-//                    "\t\t\t\t\t\t</h3>\n" +
-//                    "\t\t\t\t\t\t<div class=\"handle\">\n" +
-//                    "\t\t\t\t\t\t\t<label class=\"btn_gray_m\"><img src=\"css/images/ucenter/shopping.jpg\" width=\"15\"\n" +
-//                    "\t\t\t\t\t\t\t\t\theight=\"15\" /><a href=\"addCart?productId="+product.getId()+"\">加入购物车</a>\n" +
-//                    "\t\t\t\t\t\t\t\t\tonclick=\"joinCart_list(1);\" /></label>\n" +
-//                    "\t\t\t\t\t\t</div>\n" +
-//                    "\t\t\t\t\t\t<div class=\"price\">\n" +
-//                    "\t\t\t\t\t\t\t￥0<s>￥>0</s>\n" +
-//                    "\t\t\t\t\t\t</div>\n" +
-//                    "\t\t\t\t\t</li>");
-//        }
-//
-//        out.write("</ul>\n" +
-//                "\t\t\t\t<div class='pages_bar'>\n" +
-//                "\t\t\t\t\t<a href='javascript:void(0)' onclick=\"goPage(1)\">首页</a>\n" +
-//                "\t\t\t\t\t<a>1</a>\n" +
-//                "\t\t\t\t\t<a href='javascript:void(0)'>尾页</a>\n" +
-//                "\t\t\t\t\t<span>当前第1页/共1页</span>\n" +
-//                "\t\t\t\t</div>\n" +
-//                "\t\t\t</div>\n" +
-//                "\t\t</div>\n" +
-//                "\t\t<div ></div>\n" +
-//                "\t\t<div \"></div>\n" +
-//                "\t</div>\n" +
-//                "</body>\n" +
-//                "\n" +
-//                "</html>");
-//    }
-
-    //    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        doGet(request,response);
-//    }
-
 }

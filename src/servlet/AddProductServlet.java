@@ -1,6 +1,6 @@
 package servlet;
 
-import JavaBean.ProductBean;
+import entity.ProductBean;
 import service.serviceImplement.ProductServiceImplement;
 
 import javax.servlet.ServletException;

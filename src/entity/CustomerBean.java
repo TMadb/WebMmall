@@ -1,4 +1,4 @@
-package JavaBean;
+package entity;
 
 public class CustomerBean {
 	

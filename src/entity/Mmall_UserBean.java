@@ -1,4 +1,4 @@
-package JavaBean;
+package entity;
 
 import java.util.Date;
 
@@ -13,12 +13,6 @@ public class Mmall_UserBean {
     private String email;
 
     private String phone;
-
-    private String question;
-
-    private String answer;
-    //角色
-    private int role;
 
     private Date create_time;
 
@@ -64,30 +58,6 @@ public class Mmall_UserBean {
         this.phone = phone;
     }
 
-    public String getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
-    public String getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
-
-    public int getRole() {
-        return role;
-    }
-
-    public void setRole(int role) {
-        this.role = role;
-    }
-
     public Date getCreate_time() {
         return create_time;
     }
@@ -112,14 +82,21 @@ public class Mmall_UserBean {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
-                ", question='" + question + '\'' +
-                ", answer='" + answer + '\'' +
-                ", role=" + role +
                 ", create_time=" + create_time +
                 ", update_time=" + update_time +
                 '}';
     }
 
     public Mmall_UserBean() {
+    }
+
+    public Mmall_UserBean(int id, String username, String password, String email, String phone, Date create_time, Date update_time) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
+        this.create_time = create_time;
+        this.update_time = update_time;
     }
 }

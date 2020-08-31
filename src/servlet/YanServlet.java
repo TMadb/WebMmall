@@ -35,9 +35,8 @@ public class YanServlet extends HttpServlet {
         response.setContentType("image/jpg");//设置相应类型,告诉浏览器输出的内容为图片
 
         //判断输入的验证码是否和生成的一致
-        String yzm = request.getParameter("captcha");
-        HttpSession session = request.getSession();
-        session.setMaxInactiveInterval(60);
+
+
         BufferedImage bi = new BufferedImage(IMAGE_WIDTH, IMAGE_HEIGHT, BufferedImage.TYPE_INT_BGR);
         //绘图对象
         Graphics g = bi.getGraphics();
@@ -64,13 +63,14 @@ public class YanServlet extends HttpServlet {
             g.translate(random.nextInt(3), random.nextInt(3));
             sb.append(str);
         }
+        //将验证码存放到session中
+        HttpSession session = request.getSession();
+        session.setAttribute("yzm",sb);
+        session.setMaxInactiveInterval(60);
+        HttpSession session2 = request.getSession();
+        session2.setAttribute("zcyzm",sb);
         g.dispose();
         ImageIO.write(bi, "JPG", response.getOutputStream());
-//        session.setAttribute("yzm",sb);
-//        session.setMaxInactiveInterval(60);
-//        String xyYzm = (String)session.getAttribute("yzm");
-//          PrintWriter out = response.getWriter();
-//          out.write(String.valueOf(sb));
     }
 
     /**
