@@ -4,8 +4,8 @@ package service;
 产品的接口
  */
 
-import JavaBean.PageBean;
-import JavaBean.ProductBean;
+import entity.PageBean;
+import entity.ProductBean;
 
 import java.util.List;
 

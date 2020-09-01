@@ -1,7 +1,7 @@
 package dao;
 
-import JavaBean.PageBean;
-import JavaBean.ProductBean;
+import entity.PageBean;
+import entity.ProductBean;
 
 import java.util.List;
 

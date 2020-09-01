@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="JavaBean.UserBean" %><%--
+<%@ page import="entity.UserBean" %>
+<%@ page import="entity.ProductBean" %><%--
   Created by IntelliJ IDEA.
   User: 80664
   Date: 2020/8/4
@@ -26,28 +27,28 @@
                 },
                 dataType:"json",
                 success:function (result) {
-                  for(var i = 0;i<8;i++){
-                    var product = result[i];
-                    var html = "<li style=\"overflow: hidden\"><a href=\"\" target=\"_blank\"><img src=\"productsImage/"+product.main_image+"\" width=\"175\"\n" +
-                            "\t\t\t\t\t\t\t\t\t\theight=\"175\" /></a>\n" +
-                            "\t\t\t\t\t\t\t\t<p class=\"pro_title\">\n" +
-                            "\t\t\t\t\t\t\t\t\t<a title=\"\" href=\"\" text=\"\">"+product.subtitle+"</a>\n" +
-                            "\t\t\t\t\t\t\t\t</p>\n" +
-                            "\t\t\t\t\t\t\t\t<p class=\"brown\">\n" +
-                            "\t\t\t\t\t\t\t\t\t惊喜价：￥<b>￥"+product.price+"</b>\n" +
-                            "\t\t\t\t\t\t\t\t</p>\n" +
-                            "\t\t\t\t\t\t\t\t<p class=\"light_gray\">\n" +
-                            "\t\t\t\t\t\t\t\t\t市场价： ￥<del>￥998</del>\n" +
-                            "\t\t\t\t\t\t\t\t</p>\n" +
-                            "\t\t\t\t\t\t\t</li>";
+                  for(var i = 0;i<12;i++){
+                      var product = result[i];
+                      var html = "<li style=\"overflow: hidden\"><a href=\"productDetail.jsp?id="+product.id+"\" target=\"_blank\"><img src=\"<c:url value="productsImage/"/>"+product.main_image+"\" width=\"175\"\n" +
+                          "\t\t\t\t\t\t\t\t\t\theight=\"175\" /></a>\n" +
+                          "\t\t\t\t\t\t\t\t<p class=\"pro_title\">\n" +
+                          "\t\t\t\t\t\t\t\t\t<a title=\"\" href=\"productDetail.jsp?id="+product.id+"\" >"+product.subtitle+"</a>\n" +
+                          "\t\t\t\t\t\t\t\t</p>\n" +
+                          "\t\t\t\t\t\t\t\t<p class=\"brown\">\n" +
+                          "\t\t\t\t\t\t\t\t\t惊喜价：￥<b>￥"+product.price+"</b>\n" +
+                          "\t\t\t\t\t\t\t\t</p>\n" +
+                          "\t\t\t\t\t\t\t\t<p class=\"light_gray\">\n" +
+                          "\t\t\t\t\t\t\t\t\t市场价： ￥<del>￥998</del>\n" +
+                          "\t\t\t\t\t\t\t\t</p>\n" +
+                          "\t\t\t\t\t\t\t</li>";
+                      $("#show").append(html);
 
-                    $("#show").append(html);
                   }
-                  for(var j = 8;j<12;j++){
+                  for(var j = 13;j<18;j++){
                       var product = result[j];
-                      var html = "<li><a href=\"\"><img src=\"productsImage/"+product.main_image+"\" width=\"85\" height=\"85\" /></a>\n" +
+                      var html = "<li><a href=\"productDetail.jsp?id="+product.id+"\" target=\"_blank\"><img src=\"<c:url value="productsImage/"/>"+product.main_image+"\" width=\"85\" height=\"85\" /></a>\n" +
                           "                  <p class=\"pro_title\">\n" +
-                          "                      <a href=\"\">"+product.name+"</a>\n" +
+                          "                      <a href=\"productDetail.jsp?id="+product.id+"\" target=\"_blank\">"+product.name+"</a>\n" +
                           "                  </p>\n" +
                           "                  <p class=\"brown\">\n" +
                           "                      ￥<b>"+product.price+"</b>\n" +
@@ -116,10 +117,20 @@
       <li><a href="">我的订单</a></li>
     </ul>
     <p class="loginfo">
-      ${sessionScope.userName}！您好，欢迎您来到购物！[<a href="register?opr=out" class="reg">安全退出</a>]
+      <c:choose>
+        <c:when test="${empty sessionScope.userName}">
+          您好，欢迎您来到购物！[<a href="login.jsp">登录</a>
+          <a class="reg" href="register.jsp">免费注册</a>]
+        </c:when>
+        <c:otherwise>
+          ${userName}您好，欢迎您来到购物！[<a href="register?opr=out" class="reg">安全退出</a>]
+          [<a class="reg" href="register.jsp">免费注册</a>]
+        </c:otherwise>
+      </c:choose>
+<%--      ${sessionScope.userName}您好，欢迎您来到购物！[<a href="register?opr=out" class="reg">安全退出</a>]--%>
 
-      [<a href="login.html">登录</a>
-      <a class="reg" href="register.html">免费注册</a>]
+<%--      [<a href="login.jsp">登录</a>--%>
+<%--      <a class="reg" href="register.jsp">免费注册</a>]--%>
     </p>
   </div>
   <div class="navbar">
@@ -136,11 +147,11 @@
     <div class="mycart">
       <dl>
         <dt>
-          <a href="cart.html">购物车<b name="mycart_count">12</b>件
+          <a href="<c:url value="filter/cart.jsp" />">购物车<b name="mycart_count">12</b>件
           </a>
         </dt>
         <dd>
-          <a href="cart.jsp">去结算</a>
+          <a href="<c:url value="filter/cart.jsp" />">去结算</a>
         </dd>
       </dl>
       <!--购物车浮动div 开始-->

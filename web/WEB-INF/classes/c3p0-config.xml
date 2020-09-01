@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<c3p0-config>
+	<default-config> 
+		<property name="jdbcUrl">jdbc:mysql://localhost:3306/webdatabase</property>
+		<property name="driverClass">com.mysql.jdbc.Driver</property>
+		<property name="user">root</property>
+		<property name="password">123456</property>
+		
+		<!-- 没有可用连接，每次创建多少 -->
+		<property name="acquireIncrement">3</property>
+		<!-- 初始大小:初始化连接池时，创建多少连接-->
+		<property name="initialPoolSize">2</property>
+		<!--  最小连接个数 -->
+		<property name="minPoolSize">2</property>
+		<!-- 最大连接个数 -->
+		<property name="maxPoolSize">20</property>
+	</default-config>
+</c3p0-config>

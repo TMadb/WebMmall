@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: 80664
@@ -12,13 +13,20 @@
     <meta charset="UTF-8">
     <title >用户登录</title>
 
-    <link type="text/css" rel="stylesheet" href="css/style.css" />
-    <link type="text/css" rel="stylesheet" href="css/demo.css" />
-    <link type="text/css" rel="stylesheet" href="css/index.css" />
-    <script src="js/jquery.js"></script>
-    <script src="js/md5.js"></script>
-    <script src="js/Validform_v5.3.2.js"></script>
+    <link type="text/css" rel="stylesheet" href="<c:url value="/css/style.css" />" />
+    <link type="text/css" rel="stylesheet" href="<c:url value="/css/demo.css" />" />
+    <link type="text/css" rel="stylesheet" href="<c:url value="/css/index.css" />" />
+    <script src="<c:url value="/js/md5.js" />"></script>
+    <script src="<c:url value="/js/jquery.js" />"></script>
+    <script src="<c:url value="/js/Validform_v5.3.2.js" />"></script>
     <script>
+        //获取项目的根路径
+        function getPath(){
+            var path = window.location.pathname;
+            var index = path.indexOf("/",1);
+            var rootPath = path.substring(0,index);
+            return rootPath;
+        }
         $(function () {
             $("#loginForm").submit(function () {
                 var password  = $("#password").val();
@@ -28,15 +36,13 @@
                     $("#password").val(password);
                 }
             });
+
+            $("#change").click(function () {
+                var date = new Date();
+                location.pathname
+                $("#captchaImg").attr("src",getPath()+"/yanzheng?dateTime"+date.getTime());
+            });
         });
-    </script>
-
-    <script type="text/javascript">
-        function changeImg() {
-            document.getElementById("verificationImg").
-                src="<c:url value='/Verification?date'/>"+ new Date();
-        }
-
     </script>
     <script type="text/javascript">
         $(function(){
@@ -78,7 +84,7 @@
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
             m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','js/analytics.js','ga');
+        })(window,document,'script',getPath()+'/js/analytics.js','ga');
         ga('create', 'UA-81001026-1', 'auto');
         ga('send', 'pageview');
     </script>
@@ -133,36 +139,73 @@
             <h3 class="notice">已注册用户，请登录</h3>
             <p class="tips">欢迎来到我们的网站，如果您已是本站会员请登录</p>
             <div class="box login_box clearfix">
-                <form action='register' method="post" id="loginForm" >
+                <form action='<c:url value="/register" />' method="post" id="loginForm" >
                     <input type="hidden" name="opr" value="login" />
-                    <table width="515" class="form_table f_l">
+                    <table  width="515" class="form_table f_l">
                         <col width="120px" />
                         <col />
-                        <tr>
-                            <th>错误信息:</th>
-                            <td>
-                                ${login}
-                            </td>
 
-                        </tr>
                         <tr>
                             <th>用户名：</th>
                             <td><input class="gray" type="text" name="account"
                                        id="login_info" placeholder="请输入用户名"  datatype="s6-18"/></td>
                             <td>
                                 <div class="info"><span class="Validform_checktip">昵称至少6个字符,最多18个字符</span><span class="dec"><s class="dec1">&#9670;</s><s class="dec2">&#9670;</s></span></div>
-
                             </td>
+<%--                            <c:choose>--%>
+<%--                            <c:when test="${empty user}">--%>
+
+<%--                            </c:when>--%>
+<%--                            <c:otherwise>--%>
+<%--                            <td style="color: red;">--%>
+<%--                                错误信息:${user}--%>
+<%--                            </td>--%>
+<%--                        </c:otherwise>--%>
+<%--                        </c:choose>--%>
+                            <c:if test="${not empty user}">
+                                <td><label style="color: red">${user}</label></td>
+
+                            </c:if>
                         </tr>
                         <tr>
                             <th>密码：</th>
                             <td><input class="gray" type="password" id="password" datatype="*6-32"
-                                       name="password" placeholder="请输入6-32位长度的密码"  value=""/></td>
-
+                                       name="password" placeholder="请输入6-32位长度的密码"  value=""/>
+                            </td>
                             <td>
                                 <div class="info"><span class="Validform_checktip">请输入6-20位长度的密码</span><span class="dec"><s class="dec1">&#9670;</s><s class="dec2">&#9670;</s></span></div>
-
                             </td>
+<%--                            <c:choose>--%>
+<%--                                <c:when test="${empty password}">--%>
+
+<%--                                </c:when>--%>
+<%--                                <c:otherwise>--%>
+<%--                                    <td style="color: red;">--%>
+<%--                                        错误信息:${password}--%>
+<%--                                    </td>--%>
+<%--                                </c:otherwise>--%>
+<%--                            </c:choose>--%>
+                            <c:if test="${not empty password}">
+                                <td>
+                                    <label style="color: red">${password}</label>
+                                </td>
+
+                            </c:if>
+                        </tr>
+                        <tr>
+                            <th>验证码：</th>
+                            <td><input id="yzm" type='text' class='gray_s' name='captcha'
+                                       alt='填写下面图片所示的字符' />
+                                <c:if test="${not empty requestScope.yzm}">
+                                    <label style="color: red">${requestScope.yzm}</label>
+                                </c:if>
+                            </td>
+                        </tr>
+                        <tr class="low">
+                            <th></th>
+                            <td><img src=<c:url value="/yanzheng" /> id='captchaImg' /> <span
+                                    class="light_gray">看不清？<a href="javascript:void(0)"
+                                                              id="change">换一张</a></span></td>
                         </tr>
                         <tr>
                             <td></td>
@@ -179,14 +222,14 @@
                         <th></th>
                         <td>
                             <p class="mt_10">
-                                <strong class="f14">您还不是xxx店</span>用户
+                                <strong class="f14">您还不是小牛枸杞店的</span>用户
                                 </strong>
                             </p>
                             <p>
-                                现在免费注册成为xxx的用户，便能立即享受便宜又放心的购物乐趣。<a class="blue" href="index.jsp">网站首页>></a>
+                                现在免费注册成为小牛枸杞店的Vip吧，便能立即享受便宜又放心的购物乐趣。<a class="blue" href="index.jsp">网站首页>></a>
                             </p>
                             <p class="mt_10">
-                                <a class="reg_btn" href="register.html">注册新用户</a>
+                                <a class="reg_btn" href="register.jsp">注册新用户</a>
                             </p>
                         </td>
                     </tr>

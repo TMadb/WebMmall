@@ -1,6 +1,5 @@
 package dao;
 
-import JavaBean.ProductBean;
 import util.JDBCUtil;
 
 import java.lang.reflect.Field;
@@ -169,6 +168,5 @@ public  class BaseDao<T> {
         }
         return count;
     }
-
 
 }

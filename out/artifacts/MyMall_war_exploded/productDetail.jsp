@@ -2,18 +2,17 @@
 <%@ page import="entity.ProductBean" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html >
 <%
     String oid = request.getParameter("id");
     int id = 0;
     if(oid!=null){
-
         id=Integer.parseInt(request.getParameter("id"));
     }
     ProductServiceImplement serviceImplement = new ProductServiceImplement();
     ProductBean product = serviceImplement.selectProductById(id);
-    request.setAttribute("price", product.getPrice());
+
 %>
 <head>
     <meta charset="UTF-8">
@@ -21,23 +20,32 @@
     <link type="text/css" rel="stylesheet" href="css/index.css" />
     <script  src="js/jquery.js"></script>
     <script>
-
+        function getPath(){
+            var path = window.location.pathname;
+            var index = path.indexOf("/",1);
+            var rootPath = path.substring(0,index);
+            return rootPath;
+        }
         $(function () {
             $("#joinCarBtn").click(function () {
                 $.ajax({
                     url:"cartServlet",
                     data:{
                         opr:"joinCart",
-                        user_id:$("#name").val(),
-                        product_id:$("#data_goodsNo").val(),
-                        quantity:$("#buyNums").val()
+                        product_id:$("#product_id").val(),
+                        quantity:$("#buyNums").val(),
+                        price:$("#price").val(),
+                        img:$("#img").val(),
+                        shopName:$("#subtitle").val()
                     },
                     type:"get",
                     success:function (result) {
-                        if (result == "true"){
-                            console.log("加入成功")
+                        if (result == "total"){
+                            if(confirm("登录账户立享vip服务")){
+                                window.location.href=getPath()+"/login.jsp";
+                            }
                         }else{
-                            console.log("加入失败")
+                            console.log("加入成功");
                         }
                     }
                 });
@@ -91,12 +99,16 @@
             <li><a href="#">我的订单</a></li>
         </ul>
         <p class="loginfo">
-
-            ${sessionScope.userName}您好，欢迎您来到小牛枸杞店购物！[<a href="register?opr=out" class="reg">安全退出</a>]
-
-                [<a class="reg"  href="<c:url value="/login.jsp" />">登录</a>
-                <a class="reg" href="<c:url value="/register.jsp" />">免费注册</a>]
-
+            <c:choose>
+                <c:when test="${empty sessionScope.userName}">
+                    您好，欢迎您来到购物！[<a href="login.jsp">登录</a>
+                    <a class="reg" href="register.jsp">免费注册</a>]
+                </c:when>
+                <c:otherwise>
+                    ${sessionScope.userName}您好，欢迎您来到购物！[<a href="register?opr=out" class="reg">安全退出</a>]
+                    [<a class="reg" href="register.jsp">免费注册</a>]
+                </c:otherwise>
+            </c:choose>
         </p>
     </div>
     <div class="navbar" >
@@ -167,12 +179,14 @@
     <div class="wrapper clearfix">
         <div class="summary">
             <h2 id="name"><%out.println(product.getName());%></h2>
+            <input type="hidden" value="<%out.println(product.getName());%>" id="subtitle"/>
             <!--基本信息区域-->
             <ul>
                 <li>
                     <span >商品Id：
-                    <label id="data_goodsNo" >
-                    <%out.println(product.getId());%>
+                    <label id="data_goodsNo">
+                        <%out.print(product.getId());%>
+                        <input type="hidden" value="<%out.print(product.getId());%>" id="product_id"/>
                     </label>
                     </span>
                 </li>
@@ -184,7 +198,9 @@
                     </span>
                 </li>
                 <li id="priceLi">销售价：<%out.println(product.getPrice());%><b class="price red2"><span
-                        class="f30" id="real_price" ></span></b></li>
+                        class="f30" id="real_price" ></span></b>
+                    <input type="hidden" value="<%out.println(product.getPrice());%>" id="price"/>
+                </li>
                 <li>市场价：998</li>
                 <li>上架时间：<%out.println(product.getCreate_time());%></li>
                 <li>修改时间：<%out.println(product.getUpdate_time());%></li>
@@ -230,7 +246,8 @@
         <div>
             <div class="pic_show"
                  style="width: 335px; height: 335px; position: relative; z-index: 5; padding-bottom: 5px;">
-                <img src="/productsImage/<%out.println(product.getMain_image());%>" style="border: none; width: 335px; height: 335px" />
+                <img src="<c:url value="productsImage/"/><%out.println(product.getMain_image());%>" style="border: none; width: 335px; height: 335px" />
+                <input type="hidden" value="<%out.println(product.getMain_image());%>" id="img"/>
             </div>
         </div>
     </div>

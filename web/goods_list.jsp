@@ -1,4 +1,4 @@
-<%@ page import="JavaBean.ProductBean" %>
+<%@ page import="entity.ProductBean" %>
 <%@ page import="java.util.List" %>
 <%@ page import="service.serviceImplement.ProductServiceImplement" %><%--
   Created by IntelliJ IDEA.
@@ -19,8 +19,9 @@
     <script type="text/javascript" src="js/jquery.js"></script>
 
     <script>
+        var t;
         $(function () {
-
+            t = joinCart_list(productId);
         });
         function joinCart_list(productId) {
             location.href = "addCart?productId"+productId;

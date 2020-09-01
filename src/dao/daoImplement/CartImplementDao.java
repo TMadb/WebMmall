@@ -10,9 +10,10 @@ import java.util.Date;
 
 public class CartImplementDao extends BaseDao<CartBean> implements CartDao {
     @Override
-    public int insertCart(Integer user_id, Integer product_id, Integer quantity, Double price, Date create_time, Date update_time) {
-        String sql = "insert into mmall_cart values(null,?,?,?,?,?,?)";
-        int i = executeUpdate(sql,CartBean.class,user_id,product_id,quantity,price,new Date(),new Date());
+    public int insertCart(Integer user_id, Integer product_id, Integer quantity, Double price,Double totalprice, String subtitle,String main_image) {
+        String sql = "insert into mmall_cart values(?,?,?,?,?,?,?,?)";
+        int i = executeUpdate(sql,null,user_id,product_id,quantity,price,quantity*price,subtitle,main_image);
         return i;
     }
+
 }

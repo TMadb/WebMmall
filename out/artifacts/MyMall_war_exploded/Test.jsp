@@ -1,4 +1,4 @@
-<%@ page import="JavaBean.Mmall_UserBean" %><%--
+<%@ page import="entity.Mmall_UserBean" %><%--
   Created by IntelliJ IDEA.
   User: 80664
   Date: 2020/8/10

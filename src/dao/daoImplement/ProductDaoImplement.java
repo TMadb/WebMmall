@@ -1,7 +1,7 @@
 package dao.daoImplement;
 
-import JavaBean.PageBean;
-import JavaBean.ProductBean;
+import entity.PageBean;
+import entity.ProductBean;
 import dao.BaseDao;
 import dao.ProductDao;
 import java.util.List;
@@ -19,13 +19,8 @@ public class ProductDaoImplement extends BaseDao<ProductBean> implements Product
     //通过Id查询单个数据
     @Override
     public ProductBean selectProductById(int id) {
-
         String sql = "select * from mmall_product where id=?";
-        ProductBean productBean = null;
-        if(selectOne(sql,ProductBean.class,id)!=null){
-            productBean = selectOne(sql,ProductBean.class,id);
-        }
-        return productBean;
+        return selectOne(sql,ProductBean.class,id);
     }
 
     //分页查询数据

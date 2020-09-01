@@ -973,10 +973,10 @@
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="253" parent="237" name="checked">
+    <column id="253" parent="237" name="totalprice">
       <Position>5</Position>
-      <DataType>int(1)|0s</DataType>
-      <DefaultExpression>1</DefaultExpression>
+      <DataType>double(11,2 digit)|0s</DataType>
+      <DefaultExpression>1.00</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="254" parent="237" name="create_time">
@@ -1049,12 +1049,12 @@
     </column>
     <column id="267" parent="239" name="order_no">
       <Position>3</Position>
-      <DataType>bigint(20)|0s</DataType>
+      <DataType>varchar(40)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="268" parent="239" name="shipping_id">
       <Position>4</Position>
-      <DataType>int(20)|0s</DataType>
+      <DataType>varchar(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="269" parent="239" name="payment">
@@ -1135,7 +1135,7 @@
     </column>
     <column id="284" parent="240" name="order_no">
       <Position>3</Position>
-      <DataType>bigint(20)|0s</DataType>
+      <DataType>varchar(40)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="285" parent="240" name="product_id">
@@ -1145,12 +1145,12 @@
     </column>
     <column id="286" parent="240" name="product_name">
       <Position>5</Position>
-      <DataType>decimal(10)|0s</DataType>
+      <DataType>varchar(10)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="287" parent="240" name="product_img">
       <Position>6</Position>
-      <DataType>int(11)|0s</DataType>
+      <DataType>varchar(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="288" parent="240" name="crrent_unit_type">
@@ -1430,115 +1430,101 @@
       <DataType>varchar(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="342" parent="244" name="question">
+    <column id="342" parent="244" name="create_time">
       <Position>6</Position>
-      <DataType>varchar(10)|0s</DataType>
+      <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="343" parent="244" name="answer">
+    <column id="343" parent="244" name="update_time">
       <Position>7</Position>
-      <DataType>varchar(10)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="344" parent="244" name="role">
-      <Position>8</Position>
-      <DataType>int(1)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="345" parent="244" name="create_time">
-      <Position>9</Position>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
+      <OnUpdate>CURRENT_TIMESTAMP</OnUpdate>
     </column>
-    <column id="346" parent="244" name="update_time">
-      <Position>10</Position>
-      <DataType>datetime|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <index id="347" parent="244" name="username">
+    <index id="344" parent="244" name="username">
       <ColNames>username</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="348" parent="244" name="PRIMARY">
+    <key id="345" parent="244" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="349" parent="244" name="username">
+    <key id="346" parent="244" name="username">
       <ColNames>username</ColNames>
       <UnderlyingIndexName>username</UnderlyingIndexName>
     </key>
-    <column id="350" parent="245" name="id">
+    <column id="347" parent="245" name="id">
       <Position>1</Position>
       <DataType>char(5)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="351" parent="245" name="level">
+    <column id="348" parent="245" name="level">
       <Position>2</Position>
       <DataType>char(1)|0s</DataType>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="352" parent="245" name="name">
+    <column id="349" parent="245" name="name">
       <Position>3</Position>
       <DataType>varchar(10)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="353" parent="245" name="parentId">
+    <column id="350" parent="245" name="parentId">
       <Position>4</Position>
       <DataType>int(1)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="354" parent="245" name="status">
+    <column id="351" parent="245" name="status">
       <Position>5</Position>
       <DataType>int(1)|0s</DataType>
       <DefaultExpression>0</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="355" parent="246" name="id">
+    <column id="352" parent="246" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="356" parent="246" name="quantity">
+    <column id="353" parent="246" name="quantity">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="357" parent="246" name="PRIMARY">
+    <key id="354" parent="246" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <trigger id="358" parent="246" name="tr_userLog">
+    <trigger id="355" parent="246" name="tr_userLog">
       <SourceTextLength>60</SourceTextLength>
       <Definer>root@localhost</Definer>
       <Turn>after-row</Turn>
       <Events>I</Events>
     </trigger>
-    <column id="359" parent="247" name="id">
+    <column id="356" parent="247" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="360" parent="247" name="test">
+    <column id="357" parent="247" name="test">
       <Position>2</Position>
       <DataType>varchar(30)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="361" parent="247" name="time">
+    <column id="358" parent="247" name="time">
       <Position>3</Position>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <argument id="362" parent="248">
+    <argument id="359" parent="248">
       <ArgumentDirection>R</ArgumentDirection>
       <DataType>varchar(4000)|0s</DataType>
     </argument>
-    <argument id="363" parent="248" name="areaId">
+    <argument id="360" parent="248" name="areaId">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
     </argument>

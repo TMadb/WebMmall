@@ -55,7 +55,7 @@
                 showProducts($(this).attr("pageIndex"),pageSize);
 
             });
-            var nextLi = $("<li id='next' ><a href=\"#\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li>")
+            var nextLi = $("<li id='next' ><a href=\"'"+i+"'\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li>")
             $(".pagination").append(nextLi);
 
 
@@ -64,7 +64,7 @@
                     var nextPage = currentPage +1;
 
                 }
-                if(currentPage == totalPage){
+                if(currentPage >= totalPage){
                     nextLi.addClass("disabled")
                 }
                 showProducts(nextPage,pageSize);
@@ -74,7 +74,7 @@
                 if(currentPage>1){
                     var prevPage = currentPage -1;
                 }
-                if(currentPage == 1){
+                if(currentPage <= 1){
                     prevLi.addClass("disabled")
                 }
                 showProducts(prevPage,pageSize);
