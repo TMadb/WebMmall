@@ -4,83 +4,56 @@ package entity;
 订单表
  */
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Mmall_orderBean {
 
-    private Integer id;
-    //订单表中对应的user表的外键，表示一对一的关系
+    private String id;
+    //一个订单应该对应一个用户
     private Mmall_UserBean user;
 
-    private String order_no;
-
-    private String shipping_id;
-
-    private Integer payment;
-
-    private Integer pament_type;
-
-    private Integer postage;
-
+    private Double totalprice;
+    //地址
+    private String address;
+    //订单的状态
     private Integer status;
-
-    private Date payment_time;
 
     private Date send_time;
 
-    private Date end_time;
-
     private Date close_time;
-
-    private Date create_time;
-
-    private Date update_time;
+    //一个订单应该有多个订单条目
+    private List<Mmall_order_itemBean> orderItemBeanList = new ArrayList<>();
 
     public Mmall_orderBean() {
     }
-    public Mmall_orderBean(Integer id, Mmall_UserBean user, String order_no, String shipping_id, Integer payment, Integer pament_type, Integer postage, Integer status, Date payment_time, Date send_time, Date end_time, Date close_time, Date create_time, Date update_time) {
+
+    public Mmall_orderBean(String id, Mmall_UserBean user, Double totalprice, String address, Integer status, Date send_time, Date close_time, List<Mmall_order_itemBean> orderItemBeanList) {
         this.id = id;
         this.user = user;
-        this.order_no = order_no;
-        this.shipping_id = shipping_id;
-        this.payment = payment;
-        this.pament_type = pament_type;
-        this.postage = postage;
+        this.totalprice = totalprice;
+        this.address = address;
         this.status = status;
-        this.payment_time = payment_time;
         this.send_time = send_time;
-        this.end_time = end_time;
         this.close_time = close_time;
-        this.create_time = create_time;
-        this.update_time = update_time;
+        this.orderItemBeanList = orderItemBeanList;
     }
 
-    @Override
-    public String toString() {
-        return "Mmall_orderBean{" +
-                "id=" + id +
-                ", user=" + user +
-                ", order_no='" + order_no + '\'' +
-                ", shipping_id='" + shipping_id + '\'' +
-                ", payment=" + payment +
-                ", pament_type=" + pament_type +
-                ", postage=" + postage +
-                ", status=" + status +
-                ", payment_time=" + payment_time +
-                ", send_time=" + send_time +
-                ", end_time=" + end_time +
-                ", close_time=" + close_time +
-                ", create_time=" + create_time +
-                ", update_time=" + update_time +
-                '}';
+    public List<Mmall_order_itemBean> getOrderItemBeanList() {
+        return orderItemBeanList;
     }
 
-    public Integer getId() {
-        return id;
+    public void setOrderItemBeanList(List<Mmall_order_itemBean> orderItemBeanList) {
+        this.orderItemBeanList = orderItemBeanList;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Mmall_UserBean getUser() {
@@ -91,44 +64,22 @@ public class Mmall_orderBean {
         this.user = user;
     }
 
-    public String getOrder_no() {
-        return order_no;
+    public Double getTotalprice() {
+        return totalprice;
     }
 
-    public void setOrder_no(String order_no) {
-        this.order_no = order_no;
+    public void setTotalprice(Double totalprice) {
+        this.totalprice = totalprice;
     }
 
-    public String getShipping_id() {
-        return shipping_id;
+
+
+    public String getId() {
+        return id;
     }
 
-    public void setShipping_id(String shipping_id) {
-        this.shipping_id = shipping_id;
-    }
-
-    public Integer getPayment() {
-        return payment;
-    }
-
-    public void setPayment(Integer payment) {
-        this.payment = payment;
-    }
-
-    public Integer getPament_type() {
-        return pament_type;
-    }
-
-    public void setPament_type(Integer pament_type) {
-        this.pament_type = pament_type;
-    }
-
-    public Integer getPostage() {
-        return postage;
-    }
-
-    public void setPostage(Integer postage) {
-        this.postage = postage;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Integer getStatus() {
@@ -139,28 +90,12 @@ public class Mmall_orderBean {
         this.status = status;
     }
 
-    public Date getPayment_time() {
-        return payment_time;
-    }
-
-    public void setPayment_time(Date payment_time) {
-        this.payment_time = payment_time;
-    }
-
     public Date getSend_time() {
         return send_time;
     }
 
     public void setSend_time(Date send_time) {
         this.send_time = send_time;
-    }
-
-    public Date getEnd_time() {
-        return end_time;
-    }
-
-    public void setEnd_time(Date end_time) {
-        this.end_time = end_time;
     }
 
     public Date getClose_time() {
@@ -171,20 +106,17 @@ public class Mmall_orderBean {
         this.close_time = close_time;
     }
 
-    public Date getCreate_time() {
-        return create_time;
+    @Override
+    public String toString() {
+        return "Mmall_orderBean{" +
+                "id=" + id +
+                ", user=" + user +
+                ", totalprice=" + totalprice +
+                ", adrress='" + address + '\'' +
+                ", status=" + status +
+                ", send_time=" + send_time +
+                ", close_time=" + close_time +
+                ", orderItemBeanList=" + orderItemBeanList +
+                '}';
     }
-
-    public void setCreate_time(Date create_time) {
-        this.create_time = create_time;
-    }
-
-    public Date getUpdate_time() {
-        return update_time;
-    }
-
-    public void setUpdate_time(Date update_time) {
-        this.update_time = update_time;
-    }
-
 }

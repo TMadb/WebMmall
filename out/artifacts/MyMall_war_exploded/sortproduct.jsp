@@ -31,7 +31,7 @@
                             html+="<span style='font-size: 12px'>总销量：0(0人评论)</span>" ;
                             html+="<span class=\"grade\" lay-data=\"\"><i style=\"width: 50px\"></i></span></h5>";
                             html+="<div class=\"handle\">";
-                            html+="<a title=\"\" href=\"productDetail.jsp?id="+product.id+"\" ><label class=\"btn_gray_m\"><img src=\"productsImage/shop.jpg\" width=\"15\" height=\"15\" /><input type=\"button\" value=\"加入购物车\"  /></label></a></div>";
+                            html+="<label class=\"btn_gray_m\"><img src=\"productsImage/shop.jpg\" width=\"15\" height=\"15\" /><input type=\"button\" value=\"加入购物车\"  /></label></div>";
                             html+="<div style='font-size: 14px' class=\"price\">\n" +
                                 "                       ￥"+product.price+"<s>￥"+product.price+1+"</s>\n" +
                                 "                   </div>\n" +
@@ -60,7 +60,6 @@
                         <li><span>1</span><a class="p_name" href="" target="_blank">百瑞源</a></li>
                         <li><span>2</span><a class="p_name" href="" target="_blank">杞里香</a></li>
                         <li><span>3</span><a class="p_name" href="" target="_blank">裕杞福</a></li>
-                        <li><span>4</span><a class="p_name" href="" target="_blank">神农</a></li>
                         <li><span>5</span><a class="p_name" href="" target="_blank">同仁堂</a></li>
                     </ul>
                 </div>

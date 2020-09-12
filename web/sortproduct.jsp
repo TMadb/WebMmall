@@ -25,9 +25,9 @@
                             var product = result[i];
                             var html = "<li class=\"clearfix win\">";
                             html+= "<div class=\"pic\">";
-                            html+="<a href=\"\" target=\"_blank\"><img src=\"productsImage\\"+product.main_image+"\" width=\"200\" height=\"200\" /></a></div>";
+                            html+="<a href=\"productDetail.jsp?id="+product.id+"\" target=\"_blank\"><img src=\"productsImage\\"+product.main_image+"\" width=\"200\" height=\"200\" /></a></div>";
                             html+="<h5 class=\"title\">";
-                            html+="<a class=\"p_name\" href=\"\" target=\"_blank\">"+product.subtitle+"</a>";
+                            html+="<a class=\"p_name\" href=\"productDetail.jsp?id="+product.id+"\" target=\"_blank\">"+product.subtitle+"</a>";
                             html+="<span style='font-size: 12px'>总销量：0(0人评论)</span>" ;
                             html+="<span class=\"grade\" lay-data=\"\"><i style=\"width: 50px\"></i></span></h5>";
                             html+="<div class=\"handle\">";
@@ -60,7 +60,6 @@
                         <li><span>1</span><a class="p_name" href="" target="_blank">百瑞源</a></li>
                         <li><span>2</span><a class="p_name" href="" target="_blank">杞里香</a></li>
                         <li><span>3</span><a class="p_name" href="" target="_blank">裕杞福</a></li>
-                        <li><span>4</span><a class="p_name" href="" target="_blank">神农</a></li>
                         <li><span>5</span><a class="p_name" href="" target="_blank">同仁堂</a></li>
                     </ul>
                 </div>

@@ -8,67 +8,37 @@ import java.util.Date;
 
 public class Mmall_order_itemBean {
 
-    private Integer id;
-
-    private Mmall_UserBean userBean;
-
+    //订单编号，通过uuid生成
     private String order_no;
-
+    //一个订单对象对应多个订单条目
+    private Mmall_orderBean order;
+    //一个订单条目对应一个商品
     private ProductBean product;
+    //地址
+    private String address;
+    //要支付的手续费
+    private Double payment;
+    //选择支付的类型
+    private String payment_type;
 
-    private String product_name;
+    private String subtitle;
 
-    private String product_img;
+    private Double price;
 
-    private Integer crrent_unit_type;
+    private Double totalprice;
 
-    private Integer quantity;
-
-    private Double total_price;
+    private String main_image;
 
     private Date create_time;
 
     private Date update_time;
 
-    public Mmall_order_itemBean(Integer id, Mmall_UserBean userBean, String order_no, ProductBean product, String product_name, String product_img, Integer crrent_unit_type, Integer quantity, Double total_price, Date create_time, Date update_time) {
-        this.id = id;
-        this.userBean = userBean;
-        this.order_no = order_no;
-        this.product = product;
-        this.product_name = product_name;
-        this.product_img = product_img;
-        this.crrent_unit_type = crrent_unit_type;
-        this.quantity = quantity;
-        this.total_price = total_price;
-        this.create_time = create_time;
-        this.update_time = update_time;
+    public Mmall_orderBean getOrder() {
+        return order;
     }
 
-    public Mmall_order_itemBean() {
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Mmall_UserBean getUserBean() {
-        return userBean;
-    }
-
-    public void setUserBean(Mmall_UserBean userBean) {
-        this.userBean = userBean;
-    }
-
-    public String getOrder_no() {
-        return order_no;
-    }
-
-    public void setOrder_no(String order_no) {
-        this.order_no = order_no;
+    public void setOrder(Mmall_orderBean order) {
+        this.order = order;
     }
 
     public ProductBean getProduct() {
@@ -79,44 +49,28 @@ public class Mmall_order_itemBean {
         this.product = product;
     }
 
-    public String getProduct_name() {
-        return product_name;
+    public String getSubtitle() {
+        return subtitle;
     }
 
-    public void setProduct_name(String product_name) {
-        this.product_name = product_name;
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
     }
 
-    public String getProduct_img() {
-        return product_img;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setProduct_img(String product_img) {
-        this.product_img = product_img;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
-    public Integer getCrrent_unit_type() {
-        return crrent_unit_type;
+    public String getOrder_no() {
+        return order_no;
     }
 
-    public void setCrrent_unit_type(Integer crrent_unit_type) {
-        this.crrent_unit_type = crrent_unit_type;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public Double getTotal_price() {
-        return total_price;
-    }
-
-    public void setTotal_price(Double total_price) {
-        this.total_price = total_price;
+    public void setOrder_no(String order_no) {
+        this.order_no = order_no;
     }
 
     public Date getCreate_time() {
@@ -135,18 +89,78 @@ public class Mmall_order_itemBean {
         this.update_time = update_time;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String adrress) {
+        this.address = adrress;
+    }
+
+    public Double getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Double payment) {
+        this.payment = payment;
+    }
+
+    public Double getTotalprice() {
+        return totalprice;
+    }
+
+    public void setTotalprice(Double totalprice) {
+        this.totalprice = totalprice;
+    }
+
+    public String getMain_image() {
+        return main_image;
+    }
+
+    public void setMain_image(String main_image) {
+        this.main_image = main_image;
+    }
+
+    public String getPayment_type() {
+        return payment_type;
+    }
+
+    public void setPayment_type(String payment_type) {
+        this.payment_type = payment_type;
+    }
+
+    public Mmall_order_itemBean() {
+    }
+
+
+    public Mmall_order_itemBean(String order_no, Mmall_orderBean order, ProductBean product, String address, Double payment, String payment_type, String subtitle, Double price, Double totalprice, String main_image, Date create_time, Date update_time) {
+        this.order_no = order_no;
+        this.order = order;
+        this.product = product;
+        this.address = address;
+        this.payment = payment;
+        this.payment_type = payment_type;
+        this.subtitle = subtitle;
+        this.price = price;
+        this.totalprice = totalprice;
+        this.main_image = main_image;
+        this.create_time = create_time;
+        this.update_time = update_time;
+    }
+
     @Override
     public String toString() {
         return "Mmall_order_itemBean{" +
-                "id=" + id +
-                ", userBean=" + userBean +
-                ", order_no='" + order_no + '\'' +
+                "order_no='" + order_no + '\'' +
+                ", order=" + order +
                 ", product=" + product +
-                ", product_name='" + product_name + '\'' +
-                ", product_img='" + product_img + '\'' +
-                ", crrent_unit_type=" + crrent_unit_type +
-                ", quantity=" + quantity +
-                ", total_price=" + total_price +
+                ", adrress='" + address + '\'' +
+                ", payment=" + payment +
+                ", payment_type=" + payment_type +
+                ", subtitle='" + subtitle + '\'' +
+                ", price=" + price +
+                ", totalprice=" + totalprice +
+                ", main_image='" + main_image + '\'' +
                 ", create_time=" + create_time +
                 ", update_time=" + update_time +
                 '}';

@@ -40,4 +40,11 @@ public class Mmall_UserDaoImplement extends BaseDao<Mmall_UserBean> implements M
         Mmall_UserBean user = selectOne(sql,Mmall_UserBean.class,userName);
         return user;
     }
+
+    @Override
+    public Mmall_UserBean selectOneByUserId(Integer user_id) {
+        String sql = "select * from mmall_user where id=?";
+        Mmall_UserBean user = selectOne(sql,Mmall_UserBean.class,user_id);
+        return user;
+    }
 }

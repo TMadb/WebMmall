@@ -39,7 +39,4 @@ public class ResponseSet<T> {
 		this.message = message;
 		this.data = data;
 	}
-	
-	
-
 }

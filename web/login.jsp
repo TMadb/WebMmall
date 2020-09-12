@@ -226,7 +226,7 @@
                                 </strong>
                             </p>
                             <p>
-                                现在免费注册成为小牛枸杞店的Vip吧，便能立即享受便宜又放心的购物乐趣。<a class="blue" href="index.jsp">网站首页>></a>
+                                现在免费注册成为小牛枸杞店的Vip吧，便能立即享受便宜又放心的购物乐趣。<a class="blue" href="<c:url value="/index.jsp" />">网站首页>></a>
                             </p>
                             <p class="mt_10">
                                 <a class="reg_btn" href="register.jsp">注册新用户</a>

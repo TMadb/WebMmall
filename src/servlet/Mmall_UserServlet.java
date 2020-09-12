@@ -1,10 +1,14 @@
 package servlet;
 
+/**
+ * 用户操作
+ */
+
+import entity.Cart;
 import entity.Mmall_UserBean;
 import com.chinasofti.commons.CommonUtils;
 import dao.BaseDao;
 import service.serviceImplement.Mmall_UserServiceImplement;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,8 +18,6 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 @WebServlet(name = "Mmall_UserServlet",value = "/register")
 public class Mmall_UserServlet extends HttpServlet {
@@ -83,6 +85,13 @@ public class Mmall_UserServlet extends HttpServlet {
         }
     }
 
+    /**
+     * 退出登录
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     private void loginOut(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{
         request.setCharacterEncoding("utf-8");
@@ -92,6 +101,13 @@ public class Mmall_UserServlet extends HttpServlet {
         request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
+    /**
+     * 登录
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     private void loginUser(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{
         String userName = request.getParameter("account");
@@ -101,11 +117,13 @@ public class Mmall_UserServlet extends HttpServlet {
         String yzm = String.valueOf(request.getSession().getAttribute("yzm"));
         String nyzm  = yzm.toUpperCase();
         Mmall_UserBean userBean =userServiceImplement.login(userName,CommonUtils.getMD5String(password));
-
         if(userBean != null && ncaptcha.equals(nyzm)){
             //将登陆的用户名存储
             HttpSession session = request.getSession();
             session.setAttribute("userName",userBean.getUsername());
+            //登录发车
+            request.getSession().setAttribute("session_cart",new Cart());
+            System.out.println(request.getSession().getAttribute("session_cart"));
             response.sendRedirect("index.jsp");
         }else{
             if(userBean == null || userBean.getUsername() != userName){
@@ -137,25 +155,31 @@ public class Mmall_UserServlet extends HttpServlet {
 
         }
 
+    /**
+     * 注册
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
         protected void register (HttpServletRequest request, HttpServletResponse response)
                 throws ServletException, IOException {
             request.setCharacterEncoding("utf-8");
             response.setContentType("text/html;charset=utf-8");
-//            Mmall_UserBean userBean = CommonUtils.toBean(request.getParameterMap(),
-//                    Mmall_UserBean.class);
+            //获取参数
             String userName = request.getParameter("account");
             String password = request.getParameter("password");
             String email = request.getParameter("email");
             String phone = request.getParameter("phone");
-//            String passquestion = request.getParameter("passquestion");
-//            String passanswer = request.getParameter("passanswer");
-//            String captcha = request.getParameter("captcha");
-//            String captchaM = captcha.toUpperCase();
             int i = userServiceImplement.addUser(userName,CommonUtils.getMD5String(password),
                     email,phone,new Date(),new Date());
+            if(userName == null){
+                request.getRequestDispatcher("register.jsp").forward(request, response);
+            }
             if(i > 0){
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             }else{
+
                 request.getRequestDispatcher("register.jsp").forward(request, response);
             }
         }

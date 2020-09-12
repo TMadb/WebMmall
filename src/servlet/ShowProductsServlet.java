@@ -39,9 +39,7 @@ public class ShowProductsServlet extends HttpServlet {
             showProducts(request,response);
         }else if(opr.equals("showDetails")){
             showProductsDetailes(request,response);
-        }else if(opr.equals("showproductBysort") && condition.equals("黑枸杞")){
-            showproductBysort(request,response,condition);
-        }else if(opr.equals("showproductBysort") && condition.equals("红枸杞")){
+        }else if(opr.equals("showproductBysort")){
             showproductBysort(request,response,condition);
         }
 //        else if(opr.equals("one")){

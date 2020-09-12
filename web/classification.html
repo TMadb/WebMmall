@@ -17,9 +17,9 @@
 
                             for(var j = 8;j<12;j++){
                                 var product = result[j];
-                                var html = "<li><a href=\"\"><img src=\"productsImage/"+product.main_image+"\" width=\"85\" height=\"85\" /></a>\n" +
+                                var html = "<li><a href=\"productDetail.jsp?id="+product.id+"\"><img src=\"productsImage/"+product.main_image+"\" width=\"85\" height=\"85\" /></a>\n" +
                                     "                  <p class=\"pro_title\">\n" +
-                                    "                      <a href=\"\">"+product.name+"</a>\n" +
+                                    "                      <a href=\"productDetail.jsp?id="+product.id+"\">"+product.name+"</a>\n" +
                                     "                  </p>\n" +
                                     "                  <p class=\"brown\">\n" +
                                     "                      ￥<b>"+product.price+"</b>\n" +

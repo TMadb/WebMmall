@@ -199,6 +199,7 @@
             //     $("#submit").attr('disabled', true);
             // }
             $("#send").click(function () {
+                var account = $("#account").val();
                 var name = $("#namemsg").text();
                 var pass = $("#passmsg").text();
                 var repass = $("#repassmsg").text();
@@ -210,7 +211,7 @@
                     &&  repass== "密码确认成功"
                     &&  phone== "电话验证成功"
                     &&  nemail=="邮箱验证成功"
-                    &&  nyzm=== "验证码正确"){
+                    &&  nyzm=== "验证码正确" && account!=null){
                     return true;
                 }else{
                     alert("还有信息需要处理，请耐心完成注册!!!");

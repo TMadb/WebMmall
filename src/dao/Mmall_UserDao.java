@@ -14,4 +14,6 @@ public interface Mmall_UserDao {
     int insertUser(String userName, String passWord, String email, String phone, Date create_time,Date update_time);
 
     Mmall_UserBean queryOneByUserName(String userName);
+
+    Mmall_UserBean selectOneByUserId(Integer user_id);
 }

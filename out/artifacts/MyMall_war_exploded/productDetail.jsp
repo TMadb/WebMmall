@@ -29,14 +29,11 @@
         $(function () {
             $("#joinCarBtn").click(function () {
                 $.ajax({
-                    url:"cartServlet",
+                    url:"SessionCartServlet",
                     data:{
-                        opr:"joinCart",
-                        product_id:$("#product_id").val(),
-                        quantity:$("#buyNums").val(),
-                        price:$("#price").val(),
-                        img:$("#img").val(),
-                        shopName:$("#subtitle").val()
+                        method:"addCart",
+                        id:$("#product_id").val(),
+                        quantity:$("#buyNums").val()
                     },
                     type:"get",
                     success:function (result) {
@@ -119,7 +116,7 @@
         <div class="mycart">
             <dl>
                 <dt>
-                    <a href="<c:url value="/filter/cart.jsp" />">购物车<b name="mycart_count">12</b>件
+                    <a href="<c:url value="/filter/cart.jsp" />">购物车<b name="mycart_count"></b>件
                     </a>
                 </dt>
                 <dd>
@@ -179,7 +176,7 @@
     <div class="wrapper clearfix">
         <div class="summary">
             <h2 id="name"><%out.println(product.getName());%></h2>
-            <input type="hidden" value="<%out.println(product.getName());%>" id="subtitle"/>
+            <input type="hidden" value="<%out.print(product.getName());%>" id="subtitle"/>
             <!--基本信息区域-->
             <ul>
                 <li>
@@ -197,9 +194,9 @@
                     </label>
                     </span>
                 </li>
-                <li id="priceLi">销售价：<%out.println(product.getPrice());%><b class="price red2"><span
+                <li id="priceLi">销售价：<%out.print(product.getPrice());%><b class="price red2"><span
                         class="f30" id="real_price" ></span></b>
-                    <input type="hidden" value="<%out.println(product.getPrice());%>" id="price"/>
+                    <input type="hidden" value="<%out.print(product.getPrice());%>" id="price"/>
                 </li>
                 <li>市场价：998</li>
                 <li>上架时间：<%out.println(product.getCreate_time());%></li>
@@ -247,7 +244,7 @@
             <div class="pic_show"
                  style="width: 335px; height: 335px; position: relative; z-index: 5; padding-bottom: 5px;">
                 <img src="<c:url value="productsImage/"/><%out.println(product.getMain_image());%>" style="border: none; width: 335px; height: 335px" />
-                <input type="hidden" value="<%out.println(product.getMain_image());%>" id="img"/>
+                <input type="hidden" value="<%out.print(product.getMain_image());%>" id="img"/>
             </div>
         </div>
     </div>

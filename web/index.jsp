@@ -19,6 +19,14 @@
     var test;
     var text=document.title;
     var timerId;
+    //获取项目的根路径
+    function getPath(){
+      var path = window.location.pathname;
+      var index = path.indexOf("/",1);
+      var rootPath = path.substring(0,index);
+      return rootPath;
+    }
+
     $(function () {
       $.ajax({url:"showProducts",
                 type:"get",
@@ -57,13 +65,58 @@
                       $("#hotShopping").append(html);
                   }
                 }
-              }
-      )
+              });
+
+      $("#search").click(function (){
+        $.ajax({
+            url:getPath()+"/showProducts",
+            data:{
+              opr:"showproductBysort",
+              condition:$("#classification").val()
+            },
+            dataType:"json",
+          success:function (result) {
+            $("#show").text("");
+            for(var i = 0;i<result.length;i++){
+              var product = result[i];
+              var html = "<li style=\"overflow: hidden\"><a href=\"productDetail.jsp?id="+product.id+"\" target=\"_blank\"><img src=\"<c:url value="productsImage/"/>"+product.main_image+"\" width=\"175\"\n" +
+                      "\t\t\t\t\t\t\t\t\t\theight=\"175\" /></a>\n" +
+                      "\t\t\t\t\t\t\t\t<p class=\"pro_title\">\n" +
+                      "\t\t\t\t\t\t\t\t\t<a title=\"\" href=\"productDetail.jsp?id="+product.id+"\" >"+product.subtitle+"</a>\n" +
+                      "\t\t\t\t\t\t\t\t</p>\n" +
+                      "\t\t\t\t\t\t\t\t<p class=\"brown\">\n" +
+                      "\t\t\t\t\t\t\t\t\t惊喜价：￥<b>￥"+product.price+"</b>\n" +
+                      "\t\t\t\t\t\t\t\t</p>\n" +
+                      "\t\t\t\t\t\t\t\t<p class=\"light_gray\">\n" +
+                      "\t\t\t\t\t\t\t\t\t市场价： ￥<del>￥998</del>\n" +
+                      "\t\t\t\t\t\t\t\t</p>\n" +
+                      "\t\t\t\t\t\t\t</li>";
+              $("#show").append(html);
+            }
+          }
+        });
+
+      });
+
+        //广告
         test = setTimeout("showGg()",10000);
         newtext();
-      $("#dj").click(function(){
+       $("#dj").click(function(){
         $(".divtwo").animate({bottom:"-200px"});
       });
+
+       //购物车数量查询
+       // $.ajax({
+       //     url:getPath()+"/cartServlet",
+       //     type:"get",
+       //     data:{
+       //       opr:"countSum"
+       //     },
+       //   dataType: "json",
+       //    success:function (result){
+       //          $("#countSum").text(result);
+       //    }
+       // });
     });
 
     function showGg(){
@@ -78,6 +131,10 @@
       timerId = setTimeout("newtext()", 800)
     }
 
+    function chageValue(){
+        var a = document.getElementById("in").value;
+        document.getElementById("classification").value=a;
+    }
   </script>
   <style>
     .allsort:hover .fication_con{
@@ -113,8 +170,8 @@
       <a title="" style="background:url(css/images/logo.gif)" href="">电子商务平台</a>
     </h1>
     <ul class="shortcut">
-      <li class="first"><a href="">个人中心</a></li>
-      <li><a href="">我的订单</a></li>
+      <li class="first"><a href="<c:url value="/filter/index.jsp" />">个人中心</a></li>
+      <li><a href="<c:url value="/ucenter/order_list.jsp" />">我的订单</a></li>
     </ul>
     <p class="loginfo">
       <c:choose>
@@ -171,7 +228,7 @@
             </div>
           </dd>
           <dd class="static">
-							<span>共<b name="mycart_count">12</b>件商品
+							<span>共<b name="mycart_count" id="countSum">12</b>件商品
 							</span>金额总计：<b name="mycart_sum">1200.00</b>
           </dd>
           <dd class="static">
@@ -192,11 +249,9 @@
     </div>
 
     <div class="searchbox">
-      <form method='get' action=''>
-        <input class="text" type="text" name='q' autocomplete="off" placeholder="输入关键字..." /> <input
-              class="btn" type="submit" value="商品搜索" />
-      </form>
-
+        <input onblur="chageValue()" id="in" class="text" type="text" name='q' autocomplete="off" placeholder="输入关键字..." />
+        <input type="hidden" id="classification" name="sear" />
+        <input id="search" class="btn" type="button" value="商品搜索" />
     </div>
     <div class="hotwords">
       热门搜索：<a href="">百瑞源</a>

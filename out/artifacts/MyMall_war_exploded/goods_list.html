@@ -26,11 +26,11 @@
                     html+= "<div class=\"pic\">";
                     html+="<a href=\"productDetail.jsp?id="+product.id+"\" target=\"_blank\"><img src=\"productsImage\\"+product.main_image+"\" width=\"200\" height=\"200\" /></a></div>";
                     html+="<h5 class=\"title\">";
-                    html+="<a class=\"p_name\" href=\"\" target=\"_blank\">"+product.subtitle+"</a>";
+                    html+="<a class=\"p_name\" href=\"productDetail.jsp?id="+product.id+"\" target=\"_blank\">"+product.subtitle+"</a>";
                     html+="<span style='font-size: 12px'>总销量：0(0人评论)</span>" ;
                     html+="<span class=\"grade\" lay-data=\"\"><i style=\"width: 50px\"></i></span></h5>";
                     html+="<div class=\"handle\">";
-                    html+="<a title=\"\" href=\"productDetail.jsp?id="+product.id+"\" ><label class=\"btn_gray_m\"><img src=\"productsImage/shop.jpg\" width=\"15\" height=\"15\" /><input type=\"button\" value=\"加入购物车\"  /></label></a></div>";
+                    html+="<a class=\"p_name\" href=\"productDetail.jsp?id="+product.id+"\" target=\"_blank\"><label class=\"btn_gray_m\"><img src=\"productsImage/shop.jpg\" width=\"15\" height=\"15\" /><input type=\"button\" value=\"加入购物车\"  /></label></a></div>";
                     html+="<div style='font-size: 14px' class=\"price\">\n" +
                         "                       ￥"+product.price+"<s>￥"+product.price+1+"</s>\n" +
                         "                   </div>\n" +

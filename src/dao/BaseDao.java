@@ -1,7 +1,10 @@
 package dao;
 
-import util.JDBCUtil;
+/**
+ * 数据库基类
+ */
 
+import util.JDBCUtil;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
